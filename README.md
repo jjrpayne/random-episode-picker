@@ -1,3 +1,9 @@
+# Random Episode Picker
+
+This is a web app that randomly picks an episode from a TV show of your choice.
+
+Currently a WIP.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
