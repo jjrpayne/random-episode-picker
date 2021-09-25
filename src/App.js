@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Search from './components/search';
-const API_URL = "http://localhost:3001/get_from_omdb"
+import TextField from '@mui/material/TextField';
+const API_URL = "http://localhost:3001/get_from_omdb";
 
 class App extends Component {
 	constructor(props) {
@@ -11,6 +11,7 @@ class App extends Component {
 			results: [],
 			query: ''
 		}
+		this.updateQuery = this.updateQuery.bind(this);
 	}
 	
 	componentDidMount() {
@@ -19,11 +20,24 @@ class App extends Component {
 			.then(results => this.setState( {results} ));
 	}
 
+	updateQuery(event){
+		this.setState({query: event.target.value});
+		console.log(this.state.query);
+	}
+
 	render() {
 		console.log(this.state.results);
 		return (
 			<div className="App">
-				<Search />
+				<TextField
+					type="text"
+					id="tv-search"
+					label="Search TV shows..."
+					variant="standard"
+					value={this.state.query}
+					onChange={this.updateQuery}
+				/>
+
 			</div>
 		);
 	}
