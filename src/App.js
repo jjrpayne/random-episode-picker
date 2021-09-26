@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import TextField from '@mui/material/TextField';
+import ShowResult from './components/results'
+
 const API_URL = "http://localhost:3001/get_from_omdb";
 
 class App extends Component {
@@ -25,10 +27,12 @@ class App extends Component {
 	updateQuery(event){
 		this.setState({query: event.target.value});
 		console.log(this.state.query);
-		this.state.query.replace(/ /g, '+');
-		fetch(API_URL + '?s=' + this.state.query + '*&type=series')
-			.then(data => data.json())
-			.then(results => this.setState({results}));
+		if (this.state.query.length > 3) {
+			this.state.query.replace(/ /g, '+');
+			fetch(API_URL + '?s=' + this.state.query + '*&type=series')
+				.then(data => data.json())
+				.then(results => this.setState({results}));
+		}
 	}
 
 	render() {
@@ -44,6 +48,14 @@ class App extends Component {
 					value={this.state.query}
 					onChange={this.updateQuery}
 				/>
+				{this.state.results.Response == "True" ? (
+					this.state.results.Search.map(series => (
+						<ShowResult title={series.Title} year={series.Year} poster={series.Poster} key={series} />
+					))
+				) : (
+					<p>No results available.</p>
+				)
+				}
 			</div>
 		);
 	}
