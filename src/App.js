@@ -1,50 +1,35 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-// import TextField from '@mui/material/TextField';
 import Search from './components/search';
-import ShowResult from './components/results';
+import ShowResults from './components/results';
 
 const API_URL = "http://localhost:3001/get_from_omdb";
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			results: [],
-			query: ''
-		}
-		this.updateQuery = this.updateQuery.bind(this);
-	}
+function App () {
+	const [input, setInput] = useState('');
+	const [resultsList, setResultsList] = useState();
 	
-	componentDidMount() {
-		/*
-		fetch(API_URL + '?s=star+trek' + '&type=series')
-			.then(data => data.json())
-			.then(results => this.setState( {results} ));
-		*/
+	const updateInput = async(input) => {
+		setInput(input);
+		const query = new URLSearchParams(input).toString();
+		fetch(API_URL + '?s=' + query +'*&type=series')
+			.then(response => response.json())
+			.then(data => setResultsList(data.Search));
 	}
 
-	updateQuery(event){
-		this.setState({query: event.target.value});
-		console.log(this.state.query);
-		if (this.state.query.length > 3) {
-			this.state.query.replace(/ /g, '+');
-			fetch(API_URL + '?s=' + this.state.query + '*&type=series')
-				.then(data => data.json())
-				.then(results => this.setState({results}));
-		}
-	}
-
-	render() {
-		console.log(this.state.results);
-		return (
-			<div className="App">
+	return (
+		<div className="App">
 			<h1>Random Episode Picker</h1>
-				<Search />
-			</div>
-		);
-	}
+			<Search 
+				input={input}
+				onChange={updateInput}
+			/>
+			<ShowResults
+				resultsList={resultsList}
+			/>
+		</div>
+	);
 }
 
 export default App;

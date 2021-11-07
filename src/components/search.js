@@ -2,17 +2,16 @@ import React, {Component} from 'react';
 import TextField from '@mui/material/TextField';
 import SearchButton from './searchbutton';
 
-const Search = () => (
-	<form action="/" method="get">
-		<TextField
-			type="text"
-			id="tv-search"
-			label="Search TV shows..."
-			variant="outlined"
-			name="s"
-			InputProps={{endAdornment: <SearchButton />}}
-		/>
-	</form>
+const Search = ({input:keyword, onChange:setKeyword}) => (
+	<TextField
+		type="text"
+		id="tv-search"
+		label="Search TV shows..."
+		variant="outlined"
+		value={keyword}
+		InputProps={{endAdornment: <SearchButton />}}
+		onChange={(e) => setKeyword(e.target.value)}
+	/>
 );
 
 export default Search;
