@@ -3,25 +3,21 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-const ShowResults = ({resultsList=[]}) => (
+const ShowResults = ({resultsList=[], }) => (
 	<>
 	{ resultsList.map((data,index) => {
 		if(data) {
 			return (
-				<div key={data.imdbID}>
+				<>
+				<div key={data.imdbID} className="result">
 					<Card>
-						{/*
-						<CardMedia
-							component="img"
-							height="140"
-							image={data.Poster}
-						/>
-						*/}
 						<CardContent>
 							{data.Title} ({data.Year})
 						</CardContent>
 					</Card>
 				</div>
+				<br />
+				</>
 			)
 		}
 		return null
