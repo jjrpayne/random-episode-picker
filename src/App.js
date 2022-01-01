@@ -11,6 +11,7 @@ function App () {
 	const [input, setInput] = useState('');
 	const [resultsList, setResultsList] = useState();
 	const [showID, setShowID] = useState('');
+	const [seasons, setSeasons] = useState(0);
 	
 	const updateInput = async(input) => {
 		setInput(input);
@@ -22,8 +23,11 @@ function App () {
 	}
 
 	
-	const selectShow = (newId, numSeasons) => {
+	const selectShow = (newId) => {
 		setShowID(newId);
+		fetch(API_URL + '?i=' + newId)
+			.then(response => response.json())
+			.then(data => setSeasons(data.totalSeasons));
 		setResultsList();
 	}
 	
@@ -38,6 +42,8 @@ function App () {
 			<div className="resultsList">
 				<ShowResults
 					resultsList={resultsList}
+					showID={showID}
+					setShowID={setShowID}
 				/>
 			</div>
 		</div>

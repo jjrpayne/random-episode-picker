@@ -2,8 +2,10 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import CardActionArea from '@mui/material/CardActionArea';
+import noImage from './noImage.png';
 
-const ShowResults = ({resultsList=[], }) => (
+const ShowResults = ({resultsList=[], showID:id, setShowID:setId}) => (
 	<>
 	{ resultsList.map((data,index) => {
 		if(data) {
@@ -11,12 +13,25 @@ const ShowResults = ({resultsList=[], }) => (
 				<>
 				<div key={data.imdbID} className="result">
 					<Card>
-						<CardContent>
-							{data.Title} ({data.Year})
-						</CardContent>
+						<CardActionArea onClick={() => setId(data.imdbID)}>
+							<CardContent>
+								{(() => {
+									if(data.Poster != "N/A") {
+										return(
+											<img width="300" src={data.Poster} alt={data.Title} />
+										)
+									} else {
+										return(
+											<img width="300" src={noImage} alt={data.Title} />
+										)
+									}
+								})()}
+								<br />
+								{data.Title} ({data.Year})
+							</CardContent>
+						</CardActionArea>
 					</Card>
 				</div>
-				<br />
 				</>
 			)
 		}
