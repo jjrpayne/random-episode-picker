@@ -39,13 +39,20 @@ function App () {
 				input={input}
 				onChange={updateInput}
 			/>
-			<div className="resultsList">
-				<ShowResults
-					resultsList={resultsList}
-					showID={showID}
-					setShowID={setShowID}
-				/>
-			</div>
+			{(() => {
+				if (showID == '') {
+					return(
+						<div className="resultsList">
+							<ShowResults
+								resultsList={resultsList}
+								selectShow={selectShow}
+							/>
+						</div>
+					)
+				} else {
+					return(<div></div>)
+				}
+			})()}
 		</div>
 	);
 }

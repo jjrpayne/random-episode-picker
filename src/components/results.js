@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardActionArea from '@mui/material/CardActionArea';
 import noImage from './noImage.png';
 
-const ShowResults = ({resultsList=[], showID:id, setShowID:setId}) => (
+const ShowResults = ({resultsList=[], selectShow}) => (
 	<>
 	{ resultsList.map((data,index) => {
 		if(data) {
@@ -13,7 +13,7 @@ const ShowResults = ({resultsList=[], showID:id, setShowID:setId}) => (
 				<>
 				<div key={data.imdbID} className="result">
 					<Card>
-						<CardActionArea onClick={() => setId(data.imdbID)}>
+						<CardActionArea onClick={() => selectShow(data.imdbID)}>
 							<CardContent>
 								{(() => {
 									if(data.Poster != "N/A") {
