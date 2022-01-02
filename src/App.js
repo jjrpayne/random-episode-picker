@@ -4,6 +4,7 @@ import './App.css';
 import './main.css';
 import Search from './components/search';
 import ShowResults from './components/results';
+import ShowEpisode from './components/episode';
 
 const API_URL = "http://localhost:3001/get_from_omdb";
 
@@ -11,7 +12,8 @@ function App () {
 	const [input, setInput] = useState('');
 	const [resultsList, setResultsList] = useState();
 	const [showID, setShowID] = useState('');
-	const [seasons, setSeasons] = useState(0);
+	const [showData, setShowData] = useState();
+	const [episodeData, setEpisodeData] = useState();
 	
 	const updateInput = async(input) => {
 		setInput(input);
@@ -27,8 +29,23 @@ function App () {
 		setShowID(newId);
 		fetch(API_URL + '?i=' + newId)
 			.then(response => response.json())
-			.then(data => setSeasons(data.totalSeasons));
+			.then(data => {
+				setShowData(data);
+				selectEpisode(data);
+			});
 		setResultsList();
+	}
+
+	const selectEpisode = (sData) => {
+		var season = Math.floor(Math.random() * sData.totalSeasons) + 1;
+		fetch(API_URL + '?i=' + sData.imdbID + '&season=' + season.toString())
+			.then(response => response.json())
+			.then(data => {
+				var episode = Math.floor(Math.random() * data.Episodes.length);
+				fetch(API_URL + '?i=' + data.Episodes[episode].imdbID)
+					.then(response => response.json())
+					.then(newData => setEpisodeData(newData));
+			});
 	}
 	
 
@@ -39,6 +56,7 @@ function App () {
 				input={input}
 				onChange={updateInput}
 			/>
+			<br />
 			{(() => {
 				if (showID == '') {
 					return(
@@ -50,7 +68,15 @@ function App () {
 						</div>
 					)
 				} else {
-					return(<div></div>)
+					return(
+						<div className="episodeInfo">
+							<ShowEpisode
+								showData={showData}
+								episodeData={episodeData}
+								selectEpisode={selectEpisode}
+							/>
+						</div>
+					)
 				}
 			})()}
 		</div>

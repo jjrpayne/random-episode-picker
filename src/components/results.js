@@ -40,4 +40,4 @@ const ShowResults = ({resultsList=[], selectShow}) => (
 	</>
 )
 
-export default ShowResults
+export default ShowResults;

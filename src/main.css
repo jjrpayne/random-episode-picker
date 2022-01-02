@@ -3,6 +3,16 @@
 	padding: 10px;
 }
 
-.resultsList{
+.resultsList {
 	padding-top: 20px
 }
+
+.episodeInfo {
+	padding-top: 20px;
+	display: inline-block
+}
+
+.epDescription {
+	text-align: left
+}
+
