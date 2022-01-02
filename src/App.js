@@ -37,15 +37,25 @@ function App () {
 	}
 
 	const selectEpisode = (sData) => {
-		var season = Math.floor(Math.random() * sData.totalSeasons) + 1;
-		fetch(API_URL + '?i=' + sData.imdbID + '&season=' + season.toString())
-			.then(response => response.json())
-			.then(data => {
-				var episode = Math.floor(Math.random() * data.Episodes.length);
-				fetch(API_URL + '?i=' + data.Episodes[episode].imdbID)
-					.then(response => response.json())
-					.then(newData => setEpisodeData(newData));
+		if(sData.totalSeasons != "N/A"){
+			var season = Math.floor(Math.random() * sData.totalSeasons) + 1;
+			fetch(API_URL + '?i=' + sData.imdbID + '&season=' + season.toString())
+				.then(response => response.json())
+				.then(data => {
+					var episode = Math.floor(Math.random() * data.Episodes.length);
+					fetch(API_URL + '?i=' + data.Episodes[episode].imdbID)
+						.then(response => response.json())
+						.then(newData => setEpisodeData(newData));
+				});
+		} else {
+			setEpisodeData({
+				Title: "No episodes found.",
+				Season: "?",
+				Episode: "?",
+				Plot: "Unfortunately, we could not find any episodes for this program. Please select another title.",
+				Poster: "N/A"
 			});
+		}
 	}
 	
 

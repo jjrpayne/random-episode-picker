@@ -13,7 +13,7 @@ const ShowEpisode = ({showData=[], episodeData=[], selectEpisode}) => (
 			<CardContent>
 				<h1>{episodeData.Title}</h1>
 				<Grid container spacing={2}>
-					<Grid item lg={4} md={5}>
+					<Grid item lg={3} md={6}>
 					{(() => {
 						if(episodeData.Poster != "N/A") {
 							return(
@@ -30,7 +30,7 @@ const ShowEpisode = ({showData=[], episodeData=[], selectEpisode}) => (
 						}
 					})()}
 					</Grid>
-					<Grid item lg={8} md={7}>
+					<Grid item lg={9} md={6}>
 						<div className="epDescription">
 							<h2>{showData.Title}</h2>
 							<h3>Season {episodeData.Season}, Episode {episodeData.Episode}</h3>
