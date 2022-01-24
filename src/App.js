@@ -6,7 +6,7 @@ import Search from './components/search';
 import ShowResults from './components/results';
 import ShowEpisode from './components/episode';
 
-const API_URL = "http://localhost:3001/get_from_omdb";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function App () {
 	const [input, setInput] = useState('');
