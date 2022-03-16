@@ -2,7 +2,7 @@
 
 This is a web app that randomly picks an episode from a TV show of your choice.
 
-Currently a WIP.
+View at https://random-episode-picker.netlify.app
 
 # Getting Started with Create React App
 
