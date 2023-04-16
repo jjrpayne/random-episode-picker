@@ -4,18 +4,22 @@
 }
 
 .resultsList {
-	padding-top: 20px
+	padding-top: 20px;
 }
 
 .episodeInfo {
 	padding-top: 20px;
-	display: inline-block
+	display: inline-block;
 }
 
 .epDescription {
-	text-align: left
+	text-align: left;
 }
 
 .episodeCard {
 	width: 80vw;
+}
+
+body {
+	background: #fef1dc;
 }
